@@ -1,0 +1,49 @@
+<resources>
+    <!-- Reply Preference -->
+    <string-array name="reply_entries">
+        <item>Reply</item>
+        <item>Reply to all</item>
+    </string-array>
+
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
+    </string-array>
+
+    <string-array name="settings_list_fileformat_entries">
+        <item>JPG</item>
+        <item>PNG</item>
+    </string-array>
+    <string-array name="settings_list_fileformat_values">
+        <item>jpg</item>
+        <item>png</item>
+    </string-array>
+    <string-array name="settings_list_quality_entries">
+        <item>Best</item>
+        <item>Very High</item>
+        <item>High</item>
+        <item>Medium</item>
+        <item>Low</item>
+    </string-array>
+    <string-array name="settings_list_quality_values">
+        <item>best</item>
+        <item>bery High</item>
+        <item>high</item>
+        <item>medium</item>
+        <item>low</item>
+    </string-array>
+    <string-array name="settings_list_size_entries">
+        <item>0.5x</item>
+        <item>1x</item>
+        <item>1.5x</item>
+        <item>2x</item>
+        <item>3x</item>
+    </string-array>
+    <string-array name="settings_list_size_values">
+        <item>0.5x</item>
+        <item>1x</item>
+        <item>1.5x</item>
+        <item>2x</item>
+        <item>3x</item>
+    </string-array>
+</resources>
