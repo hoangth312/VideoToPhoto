@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Adapter.ListVideoAdapter">
+
+    <VideoView
+        android:id="@+id/vv_listVideoThum"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+
+        />
+
+    <TextView
+        android:id="@+id/tv_videorName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@id/vv_listVideoThum"
+        app:layout_constraintTop_toBottomOf="@id/vv_listVideoThum"
+        tools:text="Select Video" />
+
+    <TextView
+        android:id="@+id/tv_selectedItemCount"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center"
+        android:layout_margin="4dp"
+        android:background="@color/Black"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/White"
+        android:textSize="14dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/vv_listVideoThum"
+        app:layout_constraintEnd_toEndOf="@+id/vv_listVideoThum" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

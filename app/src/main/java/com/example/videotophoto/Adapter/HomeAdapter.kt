@@ -11,13 +11,13 @@ import com.example.videotophoto.Model.HomeModel
 import com.example.videotophoto.R
 
 
-class HomeAdapter(val iconList: ArrayList<HomeModel>,  private val cellClickListener: CellClickListener) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(private val iconList: ArrayList<HomeModel>, private val cellClickListener: CellClickListener) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-       val name = itemView.findViewById<TextView>(R.id.tv_nameIcon)
-       val Icon = itemView.findViewById<ImageView>(R.id.iv_icon)
+       val name: TextView = itemView.findViewById(R.id.tv_nameIcon)
+       val iconHome: ImageView = itemView.findViewById(R.id.iv_folderVideoIcon)
 
             }
 
@@ -34,7 +34,7 @@ class HomeAdapter(val iconList: ArrayList<HomeModel>,  private val cellClickList
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model:HomeModel = iconList.get(position)
         holder.name?.text = iconList[position].name
-        holder.Icon?.setImageResource(iconList[position].img)
+        holder.iconHome?.setImageResource(iconList[position].img)
 
         holder.itemView.setOnClickListener {
             cellClickListener.onCellClickListener(position,model)
@@ -45,7 +45,7 @@ class HomeAdapter(val iconList: ArrayList<HomeModel>,  private val cellClickList
         return iconList.size
     }
     interface CellClickListener {
-        fun onCellClickListener(position:Int , model: HomeModel)
+        fun onCellClickListener(position:Int, model: HomeModel)
     }
 
 }

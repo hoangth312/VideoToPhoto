@@ -10,7 +10,7 @@
             android:entries="@array/settings_list_fileformat_entries"
             android:entryValues="@array/settings_list_fileformat_values"
             android:key="list_file_format"
-            android:summary="Click to show a list to choose from"
+            android:summary="JPG"
             android:title="@string/file_format"
             android:defaultValue="JPG"/>
 
@@ -20,7 +20,7 @@
             android:entries="@array/settings_list_quality_entries"
             android:entryValues="@array/settings_list_quality_values"
             android:key="list_quality"
-            android:summary="Click to show a list to choose from"
+            android:summary="High"
             android:title="@string/quality"
             android:defaultValue="High"
             />
@@ -30,7 +30,7 @@
             android:entries="@array/settings_list_size_entries"
             android:entryValues="@array/settings_list_size_values"
             android:key="list_size"
-            android:summary="Click to show a list to choose from"
+            android:summary="1.5x"
             android:title="@string/size"
             android:defaultValue="1.5x"/>
     </PreferenceCategory>

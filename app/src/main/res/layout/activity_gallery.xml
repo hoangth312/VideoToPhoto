@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#ff252e39"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="18dp"
+                android:background="#182128"
+
+                />
+
+
+            <com.gigamole.navigationtabstrip.NavigationTabStrip
+                android:id="@+id/navigation_id"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                app:nts_active_color="#fff"
+                app:nts_color="#3cd3dd"
+                app:nts_corners_radius="3.5dp"
+                app:nts_factor="0.8"
+                app:nts_weight="7dp"
+                app:nts_gravity="bottom"
+                app:nts_type="point"
+                app:nts_typeface="fonts/moon.otf"
+                app:nts_animation_duration="300"
+                app:nts_inactive_color="#81ffffff"
+                app:nts_size="20dp"
+                />
+
+        </FrameLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager_id"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6"
+            android:background="#212533"/>
+    </LinearLayout>
+
+</LinearLayout>

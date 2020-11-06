@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tab >
+    <tab
+        id="@+id/snapshot"
+        icon="@drawable/ic_snapshot"
+        title="Snapshot" />
+    <tab
+        id="@+id/automatic"
+        icon="@drawable/ic_automatic_24"
+        title="Automatic Shotting" />
+</tab>
+
+

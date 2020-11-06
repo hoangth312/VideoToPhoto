@@ -1,4 +1,4 @@
-package com.example.videotophoto.Activity
+package com.example.videotophoto.ui
 
 import android.media.RingtoneManager
 import android.net.Uri
@@ -39,6 +39,7 @@ class SettingActivity : AppCompatActivity() {
             bindPreferenceSummaryToValue(findPreference("list_quality"))
             bindPreferenceSummaryToValue(findPreference("list_size"))
 
+
         }
 
 
@@ -49,11 +50,10 @@ class SettingActivity : AppCompatActivity() {
                 val stringValue = value.toString()
                 if (preference is ListPreference) {
 
-                    val listPreference = preference
-                    val index = listPreference.findIndexOfValue(stringValue)
+                    val index = preference.findIndexOfValue(stringValue)
                     preference.setSummary(
                         if (index >= 0)
-                            listPreference.entries[index]
+                            preference.entries[index]
                         else
                             null)
 
@@ -77,6 +77,7 @@ class SettingActivity : AppCompatActivity() {
                     preference.summary = stringValue
                 }
                 true
+
             }
 
         private fun bindPreferenceSummaryToValue(preference: Preference?) {
@@ -87,6 +88,8 @@ class SettingActivity : AppCompatActivity() {
                 PreferenceManager
                     .getDefaultSharedPreferences(preference?.context)
                     .getString(preference?.key, ""))
+
+
         }
     }
 }

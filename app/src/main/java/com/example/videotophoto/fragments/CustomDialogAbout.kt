@@ -10,11 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
+
 import com.example.videotophoto.R
 import kotlinx.android.synthetic.*
+import kotlinx.android.synthetic.main.dialog_custom_about.view.*
 
-import kotlinx.android.synthetic.main.fragment_custom_dialog_about.view.*
+
 
 class CustomDialogAbout : DialogFragment() {
 
@@ -33,7 +34,7 @@ class CustomDialogAbout : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view: View = inflater.inflate(R.layout.fragment_custom_dialog_about, container, false)
+        var view: View = inflater.inflate(R.layout.dialog_custom_about, container, false)
 
 
         dialog?.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
