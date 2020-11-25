@@ -32,7 +32,7 @@ class HomeAdapter(private val iconList: ArrayList<HomeModel>, private val cellCl
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val model:HomeModel = iconList.get(position)
+        val model:HomeModel = iconList[position]
         holder.name?.text = iconList[position].name
         holder.iconHome?.setImageResource(iconList[position].img)
 

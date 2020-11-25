@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".videotophoto"
@@ -18,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.GalleryActivity"></activity>
+        <activity android:name=".ui.SaveSuccesActivity"></activity>
+        <activity android:name=".ui.GalleryActivity" />
         <activity android:name=".ui.EditPhotoActivity" />
         <activity android:name=".ui.TakeAPhoto" />
         <activity
@@ -27,6 +29,7 @@
         <activity android:name=".ui.ListVideoActivity" />
         <activity android:name=".ui.FolderVideoActivity" />
         <activity android:name=".ui.SettingActivity" />
+
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name">
@@ -36,6 +39,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

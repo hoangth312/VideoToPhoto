@@ -11,12 +11,13 @@ import android.widget.TextView
 import android.widget.VideoView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.videotophoto.R
+import kotlinx.android.synthetic.main.item_list_video_adapter.view.*
 import java.io.File
 
 
 class ListVideoAdapter(private val dataListVideo: ArrayList<File>, private val callback: Callback): RecyclerView.Adapter<ListVideoAdapter.ViewHolder>() {
 
-    val retriever = MediaMetadataRetriever()
+    private val retriever = MediaMetadataRetriever()
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val nameVideo: TextView = itemView.findViewById(R.id.tv_videorName)
         val thumbnail: VideoView = itemView.findViewById(R.id.vv_listVideoThum)
@@ -36,11 +37,12 @@ class ListVideoAdapter(private val dataListVideo: ArrayList<File>, private val c
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val context: Context = holder.itemView.context
-        holder.nameVideo?.text =(dataListVideo[position].name)
+        holder.nameVideo.text =(dataListVideo[position].name)
 
         val uri = Uri.parse(dataListVideo.get(position).absolutePath)
-        holder.thumbnail?.setVideoURI(uri)
-        holder.thumbnail?.seekTo(2000)
+        holder.itemView.vv_listVideoThum?.setVideoURI(uri)
+
+        holder.thumbnail.seekTo(2000)
 
 
 

@@ -26,11 +26,11 @@
         <item>Low</item>
     </string-array>
     <string-array name="settings_list_quality_values">
-        <item>Best</item>
-        <item>Very High</item>
-        <item>High</item>
-        <item>Medium</item>
-        <item>Low</item>
+        <item>@string/Best</item>
+        <item>@string/VeryHigh</item>
+        <item>@string/High</item>
+        <item>@string/Medium</item>
+        <item>@string/Low</item>
     </string-array>
     <string-array name="settings_list_size_entries">
         <item>0.5x</item>
@@ -45,5 +45,10 @@
         <item>1.5x</item>
         <item>2x</item>
         <item>3x</item>
+    </string-array>
+    <string-array name="paint">
+        <item>@string/size</item>
+        <item>@string/Opacity</item>
+
     </string-array>
 </resources>

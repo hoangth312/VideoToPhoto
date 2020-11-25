@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_Share"
+        android:icon="@drawable/share"
+        android:title="@string/title_share" />
+
+    <item
+        android:id="@+id/navigation_RateUS"
+        android:icon="@drawable/rateus"
+        android:title="@string/title_rateUS" />
+
+    <item
+        android:id="@+id/navigation_About"
+        android:icon="@drawable/suport"
+        android:title="@string/title_about" />
+
+</menu>

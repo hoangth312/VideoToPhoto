@@ -39,7 +39,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+         />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -117,7 +118,7 @@ android:layout_margin="7dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="50dp"
-            />
+            android:contentDescription="TODO" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_CutImageList_QuickCapture"
             android:layout_width="match_parent"

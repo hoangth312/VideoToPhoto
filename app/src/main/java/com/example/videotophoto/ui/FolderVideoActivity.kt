@@ -25,7 +25,9 @@ class FolderVideoActivity : AppCompatActivity(), FolderVideoAdapter.CellClickLis
     }
 
     private fun setUpView() {
+
         var myVideo = ListDir(Environment.getExternalStorageDirectory())
+
         var videoPathList = videoPath.toSet().toList()
 
         var fordelAdapter = FolderVideoAdapter(videoPathList as MutableList<File>, this)

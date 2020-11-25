@@ -26,7 +26,6 @@ import it.sephiroth.android.library.rangeseekbar.RangeSeekBar
 import it.sephiroth.android.library.rangeseekbar.RangeSeekBar.OnRangeSeekBarChangeListener
 import kotlinx.android.synthetic.main.activity_set_time_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_auto_shotting.view.*
-import kotlinx.android.synthetic.main.fragment_quickcapture.view.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -38,6 +37,7 @@ class FragmentAutoShotting : Fragment(), QuickCaptureAdapter.ViewHolder.Callback
     var quality = ""
     var videoUrl = ""
     var visibleItemCount = 0
+
     @Volatile
     var stopThread = false
     var retriever = MediaMetadataRetriever()
@@ -53,11 +53,15 @@ class FragmentAutoShotting : Fragment(), QuickCaptureAdapter.ViewHolder.Callback
     var asyn: Long = 0
     var a: Long = 0
     var cutTimeList = ArrayList<Bitmap>()
+    private var cutFrame :TimeCaptureAsynTask? = null
+    private var b = 1
 
     private lateinit var viewOfLayout: View
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         viewOfLayout = inflater.inflate(R.layout.fragment_auto_shotting, container, false)
 
@@ -72,9 +76,32 @@ class FragmentAutoShotting : Fragment(), QuickCaptureAdapter.ViewHolder.Callback
         startVideo()
 
         viewOfLayout.imv_cameraCutTimeCapture.setOnClickListener{
-            TimeCaptureAsynTask().execute()
+            viewOfLayout.imv_Stop.visibility = View.VISIBLE
+            cutFrame = TimeCaptureAsynTask()
+
+            cutFrame!!.execute()
+
         }
-    }
+
+        viewOfLayout.imv_Stop.setOnClickListener {
+
+
+                if (cutFrame!!.isCancelled) {
+                    viewOfLayout.imv_Stop.setImageResource(R.drawable.stop_auto)
+                    cutFrame = TimeCaptureAsynTask()
+                    cutFrame!!.execute()
+
+
+
+                } else {
+                    cutFrame!!.cancel(true)
+
+                    viewOfLayout.imv_Stop.setImageResource(R.drawable.pause_button)
+                }
+
+        }
+        }
+
 
 
     companion object {
@@ -121,13 +148,17 @@ class FragmentAutoShotting : Fragment(), QuickCaptureAdapter.ViewHolder.Callback
 
         viewOfLayout.videoViewTimeCapture.setOnPreparedListener(MediaPlayer.OnPreparedListener {
             retriever.setDataSource(videoUrl)
-            var time: String? = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+            var time: String? =
+                retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
 
             var durationMax = time!!.toInt()
-            viewOfLayout.tv_endTimeCapture.text = milliSecondsToTimer(viewOfLayout.videoViewTimeCapture.duration.toLong())
-            viewOfLayout.tv_currentTimeCapture.text = (milliSecondsToTimer(viewOfLayout.videoViewTimeCapture.currentPosition.toLong()))
+            viewOfLayout.tv_endTimeCapture.text =
+                milliSecondsToTimer(viewOfLayout.videoViewTimeCapture.duration.toLong())
+            viewOfLayout.tv_currentTimeCapture.text =
+                (milliSecondsToTimer(viewOfLayout.videoViewTimeCapture.currentPosition.toLong()))
             var currentTime = viewOfLayout.videoViewTimeCapture.currentPosition
-            viewOfLayout.rangerSeekBarTimeCapture.max = viewOfLayout.videoViewTimeCapture.duration / 1000
+            viewOfLayout.rangerSeekBarTimeCapture.max =
+                viewOfLayout.videoViewTimeCapture.duration / 1000
             viewOfLayout.rangerSeekBarTimeCapture.setProgress(currentTime, durationMax)
             viewOfLayout.rangerSeekBarTimeCapture.isEnabled = true
             startTime = 0
@@ -137,14 +168,22 @@ class FragmentAutoShotting : Fragment(), QuickCaptureAdapter.ViewHolder.Callback
         })
 
 
-        viewOfLayout.rangerSeekBarTimeCapture.setOnRangeSeekBarChangeListener(object : OnRangeSeekBarChangeListener {
-            override fun onProgressChanged(rangeSeekBar: RangeSeekBar, minValue: Int, maxValue: Int, b: Boolean) {
+        viewOfLayout.rangerSeekBarTimeCapture.setOnRangeSeekBarChangeListener(object :
+            OnRangeSeekBarChangeListener {
+            override fun onProgressChanged(
+                rangeSeekBar: RangeSeekBar,
+                minValue: Int,
+                maxValue: Int,
+                b: Boolean
+            ) {
                 if (b) {
                     maxTime = maxValue
                     minTime = minValue
                     viewOfLayout.videoViewTimeCapture.seekTo(minValue * 1000)
-                    viewOfLayout.tv_endTimeCapture.text = milliSecondsToTimer((maxValue * 1000).toLong())
-                    viewOfLayout.tv_currentTimeCapture.text = (milliSecondsToTimer((minValue * 1000).toLong()))
+                    viewOfLayout.tv_endTimeCapture.text =
+                        milliSecondsToTimer((maxValue * 1000).toLong())
+                    viewOfLayout.tv_currentTimeCapture.text =
+                        (milliSecondsToTimer((minValue * 1000).toLong()))
                     startTime = (minValue + duration).roundToLong()
 
                 }
@@ -239,45 +278,52 @@ class FragmentAutoShotting : Fragment(), QuickCaptureAdapter.ViewHolder.Callback
         val builder = context?.let { AlertDialog.Builder(it) }
         val view = LayoutInflater.from(context).inflate(R.layout.activity_set_time_dialog, null)
         builder!!.setView(view)
-                .setTitle(resources.getString(R.string.enterduration))
-                .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.dismiss() })
-                .setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+            .setTitle(resources.getString(R.string.enterduration))
+            .setNegativeButton(
+                resources.getString(R.string.cancel),
+                DialogInterface.OnClickListener { dialog, which -> dialog.dismiss() })
+            .setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
 
-                    if (view.txtDuration.text.toString().isNotEmpty()) {
-                        duration = (view.txtDuration.text.toString().toFloat() * 1000)
-                        view.txtDuration.text = viewOfLayout.edNumberSnap.text as Editable?
+                if (view.txtDuration.text.toString().isNotEmpty()) {
+                    duration = (view.txtDuration.text.toString().toFloat() * 1000)
+                    view.txtDuration.text = viewOfLayout.edNumberSnap.text as Editable?
 
 
 
 
-                        if (duration / 1000 > (max - min)) {
-                            val errorDialog = context?.let { AlertDialog.Builder(it) }
-                            errorDialog!!.setTitle(resources.getString(R.string.error))
-                                    .setMessage(resources.getString(R.string.snaperror))
-                                    .setPositiveButton(resources.getString(R.string.ok), DialogInterface.OnClickListener { dialog, which -> dialog.dismiss() })
-                            errorDialog.create()
-                            errorDialog.show()
-
-                        } else {
-                            viewOfLayout.edNumberSnap.text = ((duration / 1000).toString())
-
-                        }
-                    } else {
+                    if (duration / 1000 > (max - min)) {
                         val errorDialog = context?.let { AlertDialog.Builder(it) }
                         errorDialog!!.setTitle(resources.getString(R.string.error))
-                                .setMessage(resources.getString(R.string.nullimesnap))
-                                .setPositiveButton(resources.getString(R.string.ok), DialogInterface.OnClickListener { dialog, which -> dialog.dismiss() })
+                            .setMessage(resources.getString(R.string.snaperror))
+                            .setPositiveButton(
+                                resources.getString(R.string.ok),
+                                DialogInterface.OnClickListener { dialog, which -> dialog.dismiss() })
                         errorDialog.create()
                         errorDialog.show()
-                    }
 
-                }).create()
+                    } else {
+                        viewOfLayout.edNumberSnap.text = ((duration / 1000).toString())
+
+                    }
+                } else {
+                    val errorDialog = context?.let { AlertDialog.Builder(it) }
+                    errorDialog!!.setTitle(resources.getString(R.string.error))
+                        .setMessage(resources.getString(R.string.nullimesnap))
+                        .setPositiveButton(
+                            resources.getString(R.string.ok),
+                            DialogInterface.OnClickListener { dialog, which -> dialog.dismiss() })
+                    errorDialog.create()
+                    errorDialog.show()
+                }
+
+            }).create()
         builder.show()
     }
 
 
     private fun createFileImage(bitmap: Bitmap) {
-        val file = File(Environment.getExternalStorageDirectory().absoluteFile.toString() + "/FrameCaptured")
+        val file =
+            File(Environment.getExternalStorageDirectory().absoluteFile.toString() + "/FrameCaptured")
         if (!file.exists()) {
             file.mkdir()
         }
@@ -332,28 +378,30 @@ class FragmentAutoShotting : Fragment(), QuickCaptureAdapter.ViewHolder.Callback
     }
 
 
-   private inner class TimeCaptureAsynTask : AsyncTask<Void, ArrayList<Bitmap>, ArrayList<Bitmap>>()
-    {
+    private open inner class TimeCaptureAsynTask :
+        AsyncTask<Void, ArrayList<Bitmap>, ArrayList<Bitmap>>() {
         lateinit var proressDialog: ProgressDialog
 
         override fun onPreExecute() {
             super.onPreExecute()
             proressDialog = ProgressDialog(context)
             proressDialog.setMessage(resources.getString(R.string.wait))
-            proressDialog.setCancelable(false)
-            proressDialog.show()
+  //          proressDialog.setCancelable(false)
+//            proressDialog.show()
 
 
         }
 
 
         override fun doInBackground(vararg voids: Void?): ArrayList<Bitmap>? {
+
             asyn = startTime
-            while (asyn <= maxTime *1000) {
+            while (asyn <= maxTime * 1000) {
 
 
                 retriever.setDataSource(videoUrl)
-                val bmFrame: Bitmap? = retriever.getFrameAtTime(asyn * 1000, MediaMetadataRetriever.OPTION_CLOSEST)
+                val bmFrame: Bitmap? =
+                    retriever.getFrameAtTime(asyn * 1000, MediaMetadataRetriever.OPTION_CLOSEST)
                 try {
                     bmFrame?.let { createFileImage(it) }
                 } catch (e: IOException) {
@@ -362,25 +410,23 @@ class FragmentAutoShotting : Fragment(), QuickCaptureAdapter.ViewHolder.Callback
                 publishProgress()
                 cutTimeList.add(bmFrame!!)
                 visibleItemCount = cutTimeList.size
-                if (isCancelled) {
+
+                if (cutFrame!!.isCancelled) {
                     a = (asyn + duration).toLong()
                     break
                 }
-
-
                 asyn += duration.toLong()
 
             }
+
             return cutTimeList;
         }
 
 
-
-
-         override fun onPostExecute(bitmaps: ArrayList<Bitmap>) {
+        override fun onPostExecute(bitmaps: ArrayList<Bitmap>) {
 
             loadRecyclerView(cutTimeList, imageList)
-             proressDialog.dismiss()
+            proressDialog.dismiss()
 
             super.onPostExecute(bitmaps)
         }
@@ -390,12 +436,13 @@ class FragmentAutoShotting : Fragment(), QuickCaptureAdapter.ViewHolder.Callback
             loadRecyclerView(cutTimeList, imageList)
         }
 
+        override fun onCancelled() {
+            super.onCancelled()
+            Log.e("CHECK", "12" + " cancel")
         }
 
 
-
-
-
+    }
 
 
     private val handler: Handler = @SuppressLint("HandlerLeak")
@@ -406,6 +453,7 @@ class FragmentAutoShotting : Fragment(), QuickCaptureAdapter.ViewHolder.Callback
 
         }
     }
+
     private fun milliSecondsToTimer(millisecond: Long): String {
         var finalTimerStirng = ""
         var secondsString = ""

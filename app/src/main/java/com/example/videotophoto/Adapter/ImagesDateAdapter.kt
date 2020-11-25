@@ -8,19 +8,24 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.videotophoto.Model.ImagesDateModel
 import com.example.videotophoto.R
-import com.example.videotophoto.fragments.FragmentImages
 import kotlinx.android.synthetic.main.item_images_date.view.*
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ImagesDateAdapter(private var date: ArrayList<ImagesDateModel>,var  context: Context) : RecyclerView.Adapter<ImagesDateAdapter.ViewHolder>() {
+class ImagesDateAdapter(
+    private var date: ArrayList<ImagesDateModel>,
+    var context: Context,
+    private var fileList: MutableList<File>,
+    var cellClickListener: ImagesInsideAdapter.CellClickListener
+) : RecyclerView.Adapter<ImagesDateAdapter.ViewHolder>() {
+    var sp = SimpleDateFormat("dd-MM-yyyy")
 
-    var test = FragmentImages()
-    var arrayFile = ArrayList<File>()
+    var dateOfImagesConvert = ""
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        //  val name: TextView = itemView.findViewById(R.id.tv_date)
+
 
     }
 
@@ -31,9 +36,9 @@ class ImagesDateAdapter(private var date: ArrayList<ImagesDateModel>,var  contex
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(
-                R.layout.item_images_date,
-                parent,
-                false
+            R.layout.item_images_date,
+            parent,
+            false
         )
         return ViewHolder(view)
 
@@ -41,21 +46,23 @@ class ImagesDateAdapter(private var date: ArrayList<ImagesDateModel>,var  contex
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var imageDate: ImagesDateModel = date[position]
+        var dateModel = date[position]
+        var listImages = ArrayList<File>()
+
+
         holder.itemView.tv_date.text = date[position].name
+        val linearLayoutManager = GridLayoutManager(context, 3)
+        for (i in 0 until fileList.size) {
+            if (checkDate(fileList[i]) == date[position].name) {
+                listImages.add(fileList[i])
+            }
+        }
 
-
-
-        holder.itemView.rvImageDate.layoutManager = GridLayoutManager(context, 3)
-       //holder.itemView.rvImageDate.layoutManager
-
-
-
-       var imageInsideAdapter =  ImagesInsideAdapter(arrayFile)
-//        imageInsideAdapter.setData(imageDate.imgInSide)
-
-
+        holder.itemView.rvImageDate.layoutManager = linearLayoutManager
+        var imageInsideAdapter = ImagesInsideAdapter(context, listImages, cellClickListener)
+        imageInsideAdapter.setData(dateModel.imgInSide)
         holder.itemView.rvImageDate.adapter = imageInsideAdapter
+
 
     }
 
@@ -63,15 +70,15 @@ class ImagesDateAdapter(private var date: ArrayList<ImagesDateModel>,var  contex
         return date.size
 
     }
-    fun getDate(path: String): String? {
-        val file = File(path)
-        val lastModDate = Date(file.lastModified())
-        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
-        return simpleDateFormat.format(lastModDate.time)
 
-
-
+    private fun checkDate(file: File): String {
+        var dateOfImages = file.lastModified()
+        var dates = Date(dateOfImages)
+        dateOfImagesConvert = sp.format(dates)
+        return dateOfImagesConvert
     }
 
 
-    }
+}
+
+

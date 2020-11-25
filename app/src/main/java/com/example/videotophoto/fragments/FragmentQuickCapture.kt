@@ -47,10 +47,10 @@ class FragmentQuickCapture : Fragment(), QuickCaptureAdapter.ViewHolder.Callback
     var quickCaptureAdapter: QuickCaptureAdapter? = null
     var getPath = ""
 
-
-
-
     private lateinit var viewOfLayout: View
+
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 

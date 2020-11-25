@@ -118,6 +118,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:weightSum="10"
             app:layout_constraintTop_toBottomOf="@id/rangerSeekBarTimeCapture">
 
 
@@ -125,6 +126,7 @@
                 android:id="@+id/imv_cameraCutTimeCapture"
                 android:layout_width="100dp"
                 android:layout_height="60dp"
+                android:layout_weight="2"
                 android:layout_marginStart="10dp"
                 android:src="@drawable/camera"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -138,6 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="@string/snapevery"
+                android:layout_weight="2"
                 android:textColor="@color/White"
                 android:textSize="15dp" />
 
@@ -149,6 +152,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="10dp"
+                android:layout_weight="2"
                 android:background="@drawable/bg_snapnumber">
 
                 <TextView
@@ -193,9 +197,22 @@
                 android:layout_gravity="center_vertical"
                 android:text="@string/seconds"
                 android:textColor="@color/White"
+                android:layout_weight="2"
                 android:textSize="15dp" />
 
+            <ImageView
+                android:id="@+id/imv_Stop"
+                android:layout_width="100dp"
+                android:layout_weight="2"
+                android:layout_height="60dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/stop_auto"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
 
+                />
         </LinearLayout>
 
 

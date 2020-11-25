@@ -37,7 +37,7 @@ class CustomDialogAbout : DialogFragment() {
         var view: View = inflater.inflate(R.layout.dialog_custom_about, container, false)
 
 
-        dialog?.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
         view.text2?.setOnClickListener {openWeb()}
         view.text4?.setOnClickListener{openPolicy()}
         return view

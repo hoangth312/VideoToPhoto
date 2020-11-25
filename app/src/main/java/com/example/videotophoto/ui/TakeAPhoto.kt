@@ -38,7 +38,9 @@ class TakeAPhoto : AppCompatActivity() {
             R.id.btnDone -> {
                 val intent = Intent(this, GalleryActivity::class.java)
                 this.startActivity(intent)
+                finish()
                 true
+
             }
             else -> super.onOptionsItemSelected(item)
         }

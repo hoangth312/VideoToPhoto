@@ -11,6 +11,7 @@ class GalleryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gallery)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
         setUp()
     }
 
@@ -21,7 +22,7 @@ class GalleryActivity : AppCompatActivity() {
         var adaptergallery = GalleryAdapterPager(supportFragmentManager)
         viewpager_id.adapter = adaptergallery
         navigation_id.setViewPager(viewpager_id)
-        navigation_id.setTitles(resources.getString(R.string.videos), resources.getString(R.string.images))
+        navigation_id.setTitles( resources.getString(R.string.images),resources.getString(R.string.videos))
     }
 
 

@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(), HomeAdapter.CellClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var navView: BottomNavigationView = findViewById(R.id.nav_view)
+        var navView: BottomNavigationView = findViewById(R.id.nav_view_edit_photo)
         navView.itemIconTintList = null
         checkPermissions()
         setUpView()

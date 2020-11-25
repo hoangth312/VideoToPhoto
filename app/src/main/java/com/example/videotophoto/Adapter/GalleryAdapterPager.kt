@@ -18,9 +18,9 @@ class GalleryAdapterPager(fm: FragmentManager) : FragmentStatePagerAdapter(fm,) 
 
     override fun getItem(position: Int): Fragment {
       when(position){
-          0->return FragmentVideoSideShow.newInstance()
-          1->return FragmentImages.newInstance()
 
+          0->return FragmentImages.newInstance()
+          1->return FragmentVideoSideShow.newInstance()
       }
       return null!!
     }
