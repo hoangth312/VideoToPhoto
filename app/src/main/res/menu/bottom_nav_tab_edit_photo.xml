@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/navigation_backEdit"
+        android:icon="@drawable/back_edit"
+        android:title="" />
+
+    <item
+        android:id="@+id/navigation_cropImage"
+        android:icon="@drawable/crop"
+        android:title="@string/cropImage" />
+
+    <item
+        android:id="@+id/navigation_editText"
+        android:icon="@drawable/text_editor"
+        android:title="@string/editText" />
+
+    <item
+        android:id="@+id/navigation_sticker"
+        android:icon="@drawable/sticker"
+        android:title="@string/Sticker" />
+    <item
+        android:id="@+id/navigation_paint"
+        android:icon="@drawable/paint"
+        android:title="@string/Paint" />
+</menu>
